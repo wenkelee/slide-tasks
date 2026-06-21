@@ -3,12 +3,12 @@ name: slide-update-all
 description: Manually-triggered task to update lecture slide decks across all courses listed in RESEARCH_TASKS.md, applying each deck's course- and module-level INSTRUCTIONS and the global STYLE_GUIDE, driven by the reviewed RESEARCH reports
 ---
 
-Manually-triggered task that UPDATES lecture slide decks across ALL courses. Run this AFTER the human has reviewed and revised the RESEARCH_*.md reports produced by the `slide-research-all` task. This task DOES modify .pptx files. Use the pptx skill for all slide editing. It is course-agnostic: it works for any course (cs6264, cs6035, cs6262, etc.) by deriving each deck's course and module from its path in the manifest — nothing about a specific course is hardcoded.
+Manually-triggered task that UPDATES lecture slide decks across ALL courses. Run this AFTER the human has reviewed and revised the RESEARCH_*.md reports produced by the `slide-research-cs6264` and `slide-research-cs6035` tasks. This task DOES modify .pptx files. Use the pptx skill for all slide editing. It is course-agnostic: it works for any course (cs6264, cs6035, cs6262, etc.) by deriving each deck's course and module from its path in the manifest — nothing about a specific course is hardcoded.
 
 ## Step 0 — Connect the working folder (do this FIRST, before anything else)
 
 Runs only mount this task's own folder, NOT the data folder where the decks and manifest live. Before doing anything else, verify you can read:
-   /Users/wenkelee/Documents/Claude/Courses/courses/RESEARCH_TASKS.md
+   /Users/wenkelee/Documents/Claude/Courses/courses/RESEARCH_TASKS_cs6264.md
 If it is not reachable, use the `request_cowork_directory` tool to connect:
    /Users/wenkelee/Documents/Claude/Courses
 Then continue. Do NOT proceed to the steps below until the courses root is readable.
@@ -16,7 +16,7 @@ Then continue. Do NOT proceed to the steps below until the courses root is reada
 ## Inputs
 
 - **Courses root**: /Users/wenkelee/Documents/Claude/Courses/courses
-- **Manifest** (authoritative deck list): <courses root>/RESEARCH_TASKS.md
+- **Manifest** (authoritative deck list): by default <courses root>/RESEARCH_TASKS_cs6264.md (the CS 6264 decks). If the task prompt names a specific manifest (e.g. RESEARCH_TASKS_cs6035.md), use that one instead and update only the decks it lists.
 - **Global style guide**: <courses root>/STYLE_GUIDE.md
 
 All paths in the manifest's Path and Report columns are relative to the courses root.
@@ -27,7 +27,7 @@ Read <courses root>/STYLE_GUIDE.md. This governs how every slide looks (fonts, c
 
 ## Step 2 — Read the manifest
 
-By default, read <courses root>/RESEARCH_TASKS.md. **If the task prompt names a specific manifest** (for example `RESEARCH_TASKS_cs6035.md`, the cs6035-only manifest), read THAT file instead and update only the decks it lists. Use the selected manifest's table as the AUTHORITATIVE list of decks to update. Each row gives the deck name, the exact .pptx path, and the path to its research report. ONLY operate on the exact .pptx paths listed in the manifest. The course folders contain many stray files (backups, `~$` lock files, `.corrupted`, `copy`, `Test`, `choose.pptx`, `__*savetest`, `- Notes` variants) — NEVER touch any file that is not the exact path named in the manifest.
+By default, read <courses root>/RESEARCH_TASKS_cs6264.md. **If the task prompt names a specific manifest** (for example `RESEARCH_TASKS_cs6035.md`, the cs6035-only manifest), read THAT file instead and update only the decks it lists. Use the selected manifest's table as the AUTHORITATIVE list of decks to update. Each row gives the deck name, the exact .pptx path, and the path to its research report. ONLY operate on the exact .pptx paths listed in the manifest. The course folders contain many stray files (backups, `~$` lock files, `.corrupted`, `copy`, `Test`, `choose.pptx`, `__*savetest`, `- Notes` variants) — NEVER touch any file that is not the exact path named in the manifest.
 
 ## Step 3 — Per-deck workflow
 

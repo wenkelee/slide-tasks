@@ -15,7 +15,7 @@ STEP 1 — Load the procedure. Read the canonical research procedure at:
   /Users/wenkelee/Documents/Claude/Scheduled/slide-research-cs6264/SKILL.md
 Follow it exactly, with ONE scoping override: use the CS 6035 manifest
   /Users/wenkelee/Documents/Claude/Courses/courses/RESEARCH_TASKS_cs6035.md
-instead of the default RESEARCH_TASKS.md. Research ONLY the decks listed in the cs6035 manifest.
+instead of the default RESEARCH_TASKS_cs6264.md. Research ONLY the decks listed in the cs6035 manifest.
 
 STEP 2 — For context on each deck, also read:
   /Users/wenkelee/Documents/Claude/Courses/courses/cs6035/INSTRUCTIONS.md

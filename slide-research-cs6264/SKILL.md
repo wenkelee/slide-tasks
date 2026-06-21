@@ -8,19 +8,19 @@ Manifest-driven research task for all CS 6264 lecture decks. This task is fast a
 ## Step 0 — Connect the working folder (do this FIRST, before anything else)
 
 Scheduled runs only mount this task's own folder, NOT the data folder where the decks and manifest live. Before doing anything else, verify you can read:
-   /Users/wenkelee/Documents/Claude/Courses/courses/RESEARCH_TASKS.md
+   /Users/wenkelee/Documents/Claude/Courses/courses/RESEARCH_TASKS_cs6264.md
 If it is not reachable, use the `request_cowork_directory` tool to connect:
    /Users/wenkelee/Documents/Claude/Courses
 Then continue. Do NOT proceed to the steps below until the manifest is readable.
 
 ## Manifest selection
 
-This task is manifest-driven and manifest-agnostic. By default it uses the all-courses manifest `RESEARCH_TASKS.md` (the CS 6264 decks). **If the task prompt names a specific manifest file** (for example `RESEARCH_TASKS_cs6035.md`, the cs6035-only manifest), use THAT file instead, and research only the decks it lists. Everything else below is identical regardless of which manifest is used; "the manifest" means whichever file was selected. The reports each manifest names already point into the right course folder, so scoping happens entirely through the chosen manifest.
+This task is manifest-driven and manifest-agnostic. By default it uses the CS 6264 manifest `RESEARCH_TASKS_cs6264.md`. **If the task prompt names a specific manifest file** (for example `RESEARCH_TASKS_cs6035.md`, the cs6035-only manifest), use THAT file instead, and research only the decks it lists. Everything else below is identical regardless of which manifest is used; "the manifest" means whichever file was selected. The reports each manifest names already point into the right course folder, so scoping happens entirely through the chosen manifest.
 
 ## How it works
 
-1. Read the manifest file (the default `RESEARCH_TASKS.md`, or the specific manifest named in the task prompt):
-   /Users/wenkelee/Documents/Claude/Courses/courses/RESEARCH_TASKS.md
+1. Read the manifest file (the default `RESEARCH_TASKS_cs6264.md`, or the specific manifest named in the task prompt):
+   /Users/wenkelee/Documents/Claude/Courses/courses/RESEARCH_TASKS_cs6264.md
    This file contains a table of the decks that need weekly research. Each row has:
    - Deck name (e.g., L1, L2, … L13, L14, L15, L16, L17)
    - Path to the .pptx file (relative to the courses root, which is /Users/wenkelee/Documents/Claude/Courses/courses)
