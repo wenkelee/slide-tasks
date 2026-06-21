@@ -1,6 +1,6 @@
 ---
 name: slide-research-cs6264
-description: Weekly research digest for all CS 6264 lecture decks (L1–L17), driven by the RESEARCH_TASKS.md manifest
+description: Weekly research digest for all CS 6264 lecture decks (L1–L17), driven by the RESEARCH_TASKS_cs6264.md manifest
 ---
 
 Manifest-driven research task for all CS 6264 lecture decks. This task is fast and lightweight — it does NOT modify any PPTX files. It only gathers research and writes findings reports.

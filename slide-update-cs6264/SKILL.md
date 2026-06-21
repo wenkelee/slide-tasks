@@ -1,9 +1,9 @@
 ---
-name: slide-update-all
-description: RETIRED — replaced by slide-update-cs6264 (CS 6264) and slide-update-cs6035 (CS 6035). Safe to delete from the Scheduled tab.
+name: slide-update-cs6264
+description: Manually-triggered task to update the CS 6264 lecture decks from reviewed research reports; also the canonical update procedure reused by the per-course update tasks (e.g. slide-update-cs6035)
 ---
 
-Manually-triggered task that UPDATES lecture slide decks across ALL courses. Run this AFTER the human has reviewed and revised the RESEARCH_*.md reports produced by the `slide-research-cs6264` and `slide-research-cs6035` tasks. This task DOES modify .pptx files. Use the pptx skill for all slide editing. It is course-agnostic: it works for any course (cs6264, cs6035, cs6262, etc.) by deriving each deck's course and module from its path in the manifest — nothing about a specific course is hardcoded.
+Manually-triggered task that UPDATES lecture slide decks from reviewed research reports. By default it processes the CS 6264 decks, but the procedure is course-agnostic and is reused by the per-course update tasks (e.g. slide-update-cs6035) — it works for any course by deriving each deck's course and module from its path in the chosen manifest, with nothing about a specific course hardcoded. Run this AFTER the human has reviewed and revised the RESEARCH_*.md reports produced by the matching research task (slide-research-cs6264 for CS 6264, slide-research-cs6035 for CS 6035). This task DOES modify .pptx files. Use the pptx skill for all slide editing.
 
 ## Step 0 — Connect the working folder (do this FIRST, before anything else)
 
@@ -34,14 +34,14 @@ By default, read <courses root>/RESEARCH_TASKS_cs6264.md. **If the task prompt n
 Process the decks in the order they appear in the manifest. For EACH manifest row, derive the deck's location from its Path and load the right instructions for THAT deck — do not assume any particular course:
 
 - **Deck path** = <courses root>/<Path from manifest>.
-- **Module folder** = the directory that directly contains the .pptx (e.g. for "cs6264/Module 6 - Web Security/L13 ....pptx" the module folder is "cs6264/Module 6 - Web Security"; for "cs6035/Module 2 - .../L3 ....pptx" it is "cs6035/Module 2 - ...").
+- **Module folder** = the directory that directly contains the .pptx (e.g. for "cs6264/Module 6 - Web Security/L13 ....pptx" the module folder is "cs6264/Module 6 - Web Security"; for the flat cs6035 layout, "cs6035/2.1 Software Security 1.pptx" has module folder "cs6035").
 - **Course folder** = the top-level course directory under the courses root (e.g. "cs6264", "cs6035", "cs6262") — typically the first path segment of the deck Path.
 
 Then, for each deck:
 
 a. **Load course-level instructions** — Read <course folder>/INSTRUCTIONS.md. This governs content decisions for that whole course (revision priorities, tone, things to avoid). If this file is missing, skip the deck and note it in the changelog and summary (do not guess content rules for a course that has no instructions).
 
-b. **Load module-level instructions (optional)** — If <module folder>/INSTRUCTIONS.md exists, it OVERRIDES or SUPPLEMENTS the course-level instructions for this deck. Ignore any `INSTRUCTIONS copy.md` — that is a backup. If no module-level file exists, just use the course-level instructions.
+b. **Load module-level instructions (optional)** — If <module folder>/INSTRUCTIONS.md exists AND differs from the course-level file, it OVERRIDES or SUPPLEMENTS the course-level instructions for this deck. Ignore any `INSTRUCTIONS copy.md` — that is a backup. For flat courses like cs6035 the module folder is the course folder, so there is just the one INSTRUCTIONS.md; that is expected.
 
 c. **Load the reviewed research report** — Read the report named in the manifest's Report column for this deck. The human has already reviewed and revised it; treat its "Suggested Slide Updates", "Suggested New Slides", and "Outdated Content" sections as the approved plan for what to change. Do not re-research from scratch; this report is the source of new content. You may do light verification searches only if a specific claim looks wrong.
 

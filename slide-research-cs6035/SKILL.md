@@ -28,4 +28,4 @@ For EACH deck row in the cs6035 manifest:
 
 CONSTRAINTS: Do NOT touch any .pptx files. Do NOT modify the manifest or any INSTRUCTIONS.md or STYLE_GUIDE.md. Process decks in manifest order. If a deck's .pptx is missing or locked, skip it and note it. After processing, print a summary of which reports were written or updated, and list any decks skipped and why.
 
-NOTE: This is research only. Applying the reviewed reports to the actual slides remains a separate, manually-triggered step (the slide-update-all task), so you review the findings before any slide is changed.
+NOTE: This is research only. Applying the reviewed reports to the actual slides remains a separate, manually-triggered step (the slide-update-cs6035 task), so you review the findings before any slide is changed.
