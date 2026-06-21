@@ -6,15 +6,12 @@
 /*
 
 # 2. Re-include the slide task folders and this gitignore.
-!slide-research-cs6035/
-!slide-research-cs6264/
-!slide-update-all/
+!slide-research-*/
+!slide-update-*/
 !.gitignore
 
 # 3. Inside those folders, ignore everything except the SKILL.md definition.
-slide-research-cs6035/*
-!slide-research-cs6035/SKILL.md
-slide-research-cs6264/*
-!slide-research-cs6264/SKILL.md
-slide-update-all/*
-!slide-update-all/SKILL.md
+slide-research-*/*
+!slide-research-*/SKILL.md
+slide-update-*/*
+!slide-update-*/SKILL.md
