@@ -1,17 +1,20 @@
-# Track ONLY the slide research/update task definitions.
+# Track ONLY the slide research/update task definitions (each folder's SKILL.md).
 # Everything else under Scheduled/ (personal digests, generated output,
-# the separately-versioned slide-updater repo, sample data) stays untracked.
+# the separately-versioned Courses repo, sample data) stays untracked.
 
 # 1. Ignore everything at the top level by default.
 /*
 
-# 2. Re-include the two slide task folders and this gitignore.
-!slide-research-all/
+# 2. Re-include the slide task folders and this gitignore.
+!slide-research-cs6035/
+!slide-research-cs6264/
 !slide-update-all/
 !.gitignore
 
 # 3. Inside those folders, ignore everything except the SKILL.md definition.
-slide-research-all/*
-!slide-research-all/SKILL.md
+slide-research-cs6035/*
+!slide-research-cs6035/SKILL.md
+slide-research-cs6264/*
+!slide-research-cs6264/SKILL.md
 slide-update-all/*
 !slide-update-all/SKILL.md
