@@ -8,14 +8,14 @@ Manually-triggered task that UPDATES lecture slide decks across ALL courses. Run
 ## Step 0 — Connect the working folder (do this FIRST, before anything else)
 
 Runs only mount this task's own folder, NOT the data folder where the decks and manifest live. Before doing anything else, verify you can read:
-   /Users/wenkelee/Documents/Claude/Scheduled/slide-updater/courses/RESEARCH_TASKS.md
+   /Users/wenkelee/Documents/Claude/Courses/courses/RESEARCH_TASKS.md
 If it is not reachable, use the `request_cowork_directory` tool to connect:
-   /Users/wenkelee/Documents/Claude/Scheduled/slide-updater
+   /Users/wenkelee/Documents/Claude/Courses
 Then continue. Do NOT proceed to the steps below until the courses root is readable.
 
 ## Inputs
 
-- **Courses root**: /Users/wenkelee/Documents/Claude/Scheduled/slide-updater/courses
+- **Courses root**: /Users/wenkelee/Documents/Claude/Courses/courses
 - **Manifest** (authoritative deck list): <courses root>/RESEARCH_TASKS.md
 - **Global style guide**: <courses root>/STYLE_GUIDE.md
 
@@ -27,7 +27,7 @@ Read <courses root>/STYLE_GUIDE.md. This governs how every slide looks (fonts, c
 
 ## Step 2 — Read the manifest
 
-Read <courses root>/RESEARCH_TASKS.md and use its table as the AUTHORITATIVE list of decks to update. Each row gives the deck name, the exact .pptx path, and the path to its research report. ONLY operate on the exact .pptx paths listed in the manifest. The course folders contain many stray files (backups, `~$` lock files, `.corrupted`, `copy`, `Test`, `choose.pptx`, `__*savetest`, `- Notes` variants) — NEVER touch any file that is not the exact path named in the manifest.
+By default, read <courses root>/RESEARCH_TASKS.md. **If the task prompt names a specific manifest** (for example `RESEARCH_TASKS_cs6035.md`, the cs6035-only manifest), read THAT file instead and update only the decks it lists. Use the selected manifest's table as the AUTHORITATIVE list of decks to update. Each row gives the deck name, the exact .pptx path, and the path to its research report. ONLY operate on the exact .pptx paths listed in the manifest. The course folders contain many stray files (backups, `~$` lock files, `.corrupted`, `copy`, `Test`, `choose.pptx`, `__*savetest`, `- Notes` variants) — NEVER touch any file that is not the exact path named in the manifest.
 
 ## Step 3 — Per-deck workflow
 
@@ -35,7 +35,7 @@ Process the decks in the order they appear in the manifest. For EACH manifest ro
 
 - **Deck path** = <courses root>/<Path from manifest>.
 - **Module folder** = the directory that directly contains the .pptx (e.g. for "cs6264/Module 6 - Web Security/L13 ....pptx" the module folder is "cs6264/Module 6 - Web Security"; for "cs6035/Module 2 - .../L3 ....pptx" it is "cs6035/Module 2 - ...").
-- **Course folder** = the top-level course directory under courses (e.g. "cs6264", "cs6035", "cs6262") — typically the first path segment of the deck Path.
+- **Course folder** = the top-level course directory under the courses root (e.g. "cs6264", "cs6035", "cs6262") — typically the first path segment of the deck Path.
 
 Then, for each deck:
 
@@ -54,7 +54,10 @@ e. **Revise content** — Apply the approved updates from the research report. I
 
 f. **Reformat overcrowded slides** — If a slide has too much content, or two figures stacked one above the other (or side by side), split it into two slides. If text is too small to read, reformat or regenerate the slide for legibility. **Split the speaker notes along with the content:** when one slide becomes two or more, divide its original notes so each resulting slide's notes cover exactly the content now on that slide. Keep the spoken narrative continuous across the split (the second slide's notes pick up where the first left off), do not duplicate the same notes on both slides, and do not leave the entire original note on only one of them. Each resulting slide must still satisfy the notes rules in step (g), including explaining any figure that ended up on it.
 
-g. **Revise speaker notes** — For every slide (existing or new), ensure the Notes section has substantive notes. Notes are a script the instructor reads aloud, written as spoken explanations TO students in first person ("Let me walk you through...", "Notice that..."), NEVER meta-instructions ("Tell students..."). For every NEW slide — and especially any slide that contains a new figure or diagram — the notes must explain what the slide and the figure/diagram show, in spoken form. The caption under a figure or diagram in the source is often an excellent ready-made summary; adapt it into the notes (rephrasing into spoken English) rather than leaving the figure unexplained. Notes must follow ALL the TTS-compatibility rules in STYLE_GUIDE.md: natural dates ("May 19, 2026" not ISO), no mid-sentence parenthetical citations, space-separated CVE IDs, severity words instead of CVSS numbers, expanded abbreviations, URLs only in a trailing "Sources:" section, sentences under 30 words, symbols written out.
+g. **Revise speaker notes** — For every slide (existing or new), ensure the Notes section has substantive notes. Notes are a script the instructor reads aloud, written as spoken explanations TO students in first person ("Let me walk you through...", "Notice that..."), NEVER meta-instructions ("Tell students..."). For every NEW slide — and especially any slide that contains a new figure or diagram — the notes must explain what the slide and the figure/diagram show, in spoken form. The caption under a figure or diagram in the source is often an excellent ready-made summary; adapt it into the notes (rephrasing into spoken English) rather than leaving the figure unexplained. Notes must follow ALL the TTS-compatibility rules in STYLE_GUIDE.md: natural dates ("May 19, 2026" not ISO), no mid-sentence parenthetical citations, space-separated CVE IDs, severity words instead of CVSS numbers, expanded abbreviations, URLs only in a trailing "Sources:" section, sentences under 30 words, symbols written out (including: math subscripts spoken naturally like "R one" for R_1; caret exponents as "to the power of"; the XOR operator and the word XOR as "X OR").
+
+   - **Expand EXISTING slides' notes with the new research, slide by slide (required).** Do not limit research-driven note changes to new slides. Walk every existing slide in the deck and check the reviewed report — its "Suggested Slide Updates", "Per-Slide Notes Additions", and "Outdated Content" — for anything keyed to THAT slide. If the report has a notes addition or update for the slide, integrate it into that slide's notes: weave the new or updated material into the existing spoken narrative (don't just append a disconnected sentence), and add or extend a trailing "Sources:" line with the URL(s). If the report flags the slide's content as outdated, correct the notes to match (remove the stale claim, state the current fact). Where a ready-to-paste notes addition exists in the report, use it as the basis rather than re-writing from scratch. Preserve the foundational explanation already in the notes; you are augmenting and correcting it, not discarding it. Keep each slide's notes to a readable length — if new material makes a slide's notes too long, that is a signal the slide itself should be split (step f), and the notes split with it.
+   - **Quality bar for every slide's notes (not just researched ones).** Even on slides the report does not touch, the notes must be a real spoken explanation of that slide. Replace notes that are empty, duplicated from another slide, meaningless (lecture markers like "L1 stopped here", "TODO", bare credits), or insufficient (an acronym glossary or a source/reference line with no explanation) with a genuine explanation of the slide's content. (The deterministic helper `fill_notes.py --clean`, located at /Users/wenkelee/Documents/Claude/Courses/fill_notes.py, can pre-fill and clean these before you do the research-driven expansion; the final spoken quality and the research integration are still your responsibility.)
 
 h. **Apply formatting** — Enforce STYLE_GUIDE.md on every slide of the deck: fonts, colors, title position/formatting, backgrounds per slide type, margins, line spacing, max bullets per slide. Remove any existing course/module-name or slide-number footers (the style guide specifies no footers). This applies to ALL slides even if it means restyling or regenerating existing ones.
 
